@@ -1,0 +1,307 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Light mode colors */
+  --bg-primary: #f5f5f5;
+  --bg-secondary: white;
+  --text-primary: #333;
+  --text-secondary: #666;
+  --text-accent: #2c3e50;
+  --border-color: #ddd;
+  --border-focus: #3498db;
+  --button-primary: #3498db;
+  --button-primary-hover: #2980b9;
+  --button-disabled: #bdc3c7;
+  --error-color: #e74c3c;
+  --instructions-bg: #f8f9fa;
+  --instructions-border: #3498db;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+
+  /* Banner colors remain vibrant in both modes */
+  --banner-blocked-bg: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  --banner-blocked-border: #c44644;
+  --banner-ready-bg: linear-gradient(135deg, #51cf66, #47b558);
+  --banner-ready-border: #37a047;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark mode colors */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --text-accent: #74b9ff;
+    --border-color: #404040;
+    --border-focus: #74b9ff;
+    --button-primary: #74b9ff;
+    --button-primary-hover: #0984e3;
+    --button-disabled: #555;
+    --error-color: #ff7675;
+    --instructions-bg: #383838;
+    --instructions-border: #74b9ff;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px var(--shadow-color);
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+h1 {
+  margin-bottom: 0.5rem;
+  color: var(--text-accent);
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+/* Popup Banner Styles */
+.popup-banner {
+  margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+  padding: 1rem 1.5rem;
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 1.5rem;
+}
+
+.popup-blocked {
+  background: var(--banner-blocked-bg);
+  color: white;
+  border-bottom: 3px solid var(--banner-blocked-border);
+}
+
+.popup-ready {
+  background: var(--banner-ready-bg);
+  color: white;
+  border-bottom: 3px solid var(--banner-ready-border);
+}
+
+.banner-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.banner-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.banner-text {
+  flex: 1;
+}
+
+.banner-text strong {
+  font-size: 1.1rem;
+}
+
+.banner-retest {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+}
+
+.banner-retest:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.banner-retest:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Popup Instructions */
+.popup-instructions {
+  margin-top: 0.75rem;
+}
+
+.popup-instructions summary {
+  cursor: pointer;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  list-style: none;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.popup-instructions summary::-webkit-details-marker {
+  display: none;
+}
+
+.popup-instructions summary::before {
+  content: "▶ ";
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.popup-instructions[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.popup-instructions summary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.instructions-content {
+  margin-top: 0.75rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.instructions-content pre {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 0.75rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 13px;
+  white-space: pre-wrap;
+  margin: 0.5rem 0;
+  line-height: 1.4;
+}
+
+.instructions-content a {
+  color: white;
+  text-decoration: underline;
+}
+
+.instructions-content a:hover {
+  text-decoration: none;
+}
+
+/* Form elements */
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+textarea,
+input[type="text"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 14px;
+  resize: vertical;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+textarea:focus,
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--border-focus);
+}
+
+.input-section {
+  margin-bottom: 1.5rem;
+}
+
+.output-section {
+  margin-bottom: 1.5rem;
+}
+
+.output-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+button {
+  padding: 0.75rem 1rem;
+  background-color: var(--button-primary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  min-width: 80px;
+  transition: background-color 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+  background-color: var(--button-primary-hover);
+}
+
+button:disabled {
+  background-color: var(--button-disabled);
+  cursor: not-allowed;
+}
+
+/* Error styling */
+.error {
+  color: var(--error-color);
+  font-size: 14px;
+  margin-top: 0.5rem;
+}
+
+/* Instructions */
+.instructions {
+  background-color: var(--instructions-bg);
+  padding: 1rem;
+  border-radius: 4px;
+  border-left: 4px solid var(--instructions-border);
+  transition: background-color 0.2s ease;
+}
+
+.instructions ol {
+  margin-left: 1rem;
+}
+
+.instructions li {
+  margin-bottom: 0.25rem;
+}
+
+/* Utility classes */
+.hidden {
+  display: none;
+}
+
+/* Links */
+a {
+  color: var(--border-focus);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+}

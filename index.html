@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LinkBlitzer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>LinkBlitzer</h1>
+      <p>Create a single link that opens multiple URLs in tabs</p>
+
+      <div class="input-section">
+        <label for="urls-input">Enter URLs (one per line):</label>
+        <textarea
+          id="urls-input"
+          placeholder="https://example.com&#10;https://google.com&#10;https://github.com"
+          rows="8"
+        ></textarea>
+      </div>
+
+      <div class="output-section">
+        <label for="generated-link">Generated Link:</label>
+        <div class="output-container">
+          <input
+            type="text"
+            id="generated-link"
+            readonly
+            placeholder="Valid URLs required..."
+          />
+          <button id="copy-btn" disabled>Copy</button>
+        </div>
+        <div id="error-message" class="error hidden"></div>
+      </div>
+
+      <div class="instructions">
+        <p><strong>How to use:</strong></p>
+        <ol>
+          <li>Enter URLs (one per line) in the text area above</li>
+          <li>Copy the generated link</li>
+          <li>
+            Share it with anyone - opening the link will open all URLs in tabs
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <script type="module" src="/src/index.ts"></script>
+  </body>
+</html>
