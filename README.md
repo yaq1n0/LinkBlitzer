@@ -30,6 +30,9 @@ LinkBlitzer/
 ├── index.html          # Main HTML file
 ├── styles.css          # Styling with dark mode support
 ├── main.js             # Built JavaScript (generated from TypeScript)
+├── public/
+│   └── favicon.ico     # Site favicon
+├── dist/               # Production build output (generated)
 ├── tsconfig.json       # TypeScript configuration
 ├── vite.config.js      # Build configuration
 └── package.json        # Dependencies and scripts
@@ -47,14 +50,14 @@ npm run dev
 # Type check without building
 npm run type-check
 
-# Build for production (TypeScript → main.js)
+# Build for production (TypeScript → dist/)
 npm run build
-
-# Build JavaScript only (skip type checking)
-npm run build:js
 
 # Preview production build
 npm run preview
+
+# Format code with Prettier
+npm run prettier
 ```
 
 The development server at `http://localhost:3000` includes:
@@ -169,7 +172,7 @@ https://myapp.com?urls=https%3A//example.com%7Chttps%3A//google.com%7Chttps%3A//
 This is a static web app that can be deployed anywhere:
 
 1. **Build for production**: `npm run build`
-2. **Upload files**: Deploy `index.html`, `styles.css`, and `main.js` to any static host
+2. **Upload files**: Deploy the entire `dist/` directory contents to any static host
 3. **Configure server**: Optional routing configuration for better UX
 
 ### Build for Production
@@ -178,24 +181,13 @@ This is a static web app that can be deployed anywhere:
 npm run build
 ```
 
-This creates a production-ready `main.js` file (≈5.6KB, ≈2.3KB gzipped) with:
+This creates a production-ready `dist/` directory (≈6.4KB main.js, ≈2.6KB gzipped) with:
 
 - TypeScript compiled to optimized JavaScript
 - All modules bundled into a single file
 - Code minification and tree-shaking
 - Source maps for debugging
-
-### Server Configuration
-
-Since everything runs on the root path, no special routing configuration is needed. Just serve the files normally.
-
-#### Optional: Redirect all paths to root
-
-```nginx
-location / {
-    try_files $uri $uri/ /index.html;
-}
-```
+- CSS extracted and optimized
 
 ## Security Considerations
 
