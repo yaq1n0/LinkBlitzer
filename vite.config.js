@@ -1,6 +1,8 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  // Set base path for GitHub Pages
+  base: "/LinkBlitzer/",
   // Build to standard dist directory
   build: {
     rollupOptions: {
