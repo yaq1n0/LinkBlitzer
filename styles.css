@@ -49,27 +49,29 @@
   }
 }
 
+html {
+  height: 100%;
+  font-family: sans-serif;
+  font-size: 1rem;
+
+  /* Drop font-size to 0.8rem on smaller screens for better readability */
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
+}
+
 body {
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  line-height: 1.6;
   color: var(--text-primary);
   background-color: var(--bg-primary);
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
+  height: 100%;
 }
 
 .container {
-  max-width: 600px;
+  max-width: clamp(400px, 90%, 600px);
   margin: 2rem auto;
   padding: 1.5rem;
   background: var(--bg-secondary);
-  border-radius: 8px;
-  box-shadow: 0 2px 10px var(--shadow-color);
-  transition:
-    background-color 0.2s ease,
-    box-shadow 0.2s ease;
+  border-radius: 1rem;
 }
 
 h1 {
@@ -86,7 +88,7 @@ p {
 .popup-banner {
   margin: -1.5rem -1.5rem 1.5rem -1.5rem;
   padding: 1rem 1.5rem;
-  border-radius: 8px 8px 0 0;
+  border-radius: 1rem 1rem 0 0;
   margin-bottom: 1.5rem;
 }
 
