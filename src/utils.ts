@@ -1,43 +1,73 @@
 // URL validation and parsing utilities
 
-export interface ValidationResult {
-  valid: boolean;
-  error: string | null;
-}
+export type ValidationResult =
+  | {
+      valid: true;
+    }
+  | {
+      valid: false;
+      error: string;
+    };
 
-/** Check if a string is a valid HTTP/HTTPS URL */
-export const isValidUrl = (maybeUrl: string): boolean => {
-  try {
-    const url = new URL(maybeUrl);
-    return url.protocol === "http:" || url.protocol === "https:";
-  } catch {
-    return false;
-  }
-};
-
-/** Parse URLs from textarea input (one per line) */
-export const parseUrls = (text: string): string[] => {
-  return text
+/** Parse URLs from textarea input separated by newlines */
+export const parseUrlsNewlines = (text: string): string[] =>
+  text
     .split("\n")
     .map((line) => line.trim())
     .filter((line) => line.length > 0);
+
+/** Parse URLs from textarea when input is separated by commas */
+export const parseUrlsCommas = (text: string): string[] =>
+  text
+    .split(",")
+    .map((url) => url.trim())
+    .filter((url) => url.length > 0);
+
+/** Try various parsing strategies */
+export const parseUrls = (text: string): string[] => {
+  const urlsCommas = parseUrlsCommas(text);
+  if (urlsCommas.length > 0) {
+    return urlsCommas;
+  }
+
+  const urlsNewlines = parseUrlsNewlines(text);
+  if (urlsNewlines.length > 0) {
+    return urlsNewlines;
+  }
+
+  return [];
 };
 
-/** Validate an array of URLs */
+export const getValidUrl = (input: string): URL | undefined => {
+  try {
+    return new URL(input);
+  } catch {
+    // If parsing fails, try adding https:// and parse again
+    try {
+      return new URL(`https://${input}`);
+    } catch {
+      return undefined;
+    }
+  }
+};
+
+/** Validate an array of maybe url strings */
 export const validateUrls = (urls: string[]): ValidationResult => {
   if (urls.length === 0) {
     return { valid: false, error: "Please enter at least one URL" };
   }
 
-  const invalidUrls = urls.filter((url) => !isValidUrl(url));
+  const invalidUrls = urls.map(getValidUrl).filter((url) => !url);
+
   if (invalidUrls.length > 0) {
+    console.log("Invalid URLs:", invalidUrls);
     return {
       valid: false,
       error: `Invalid URLs found: ${invalidUrls.join(", ")}`,
     };
   }
 
-  return { valid: true, error: null };
+  return { valid: true };
 };
 
 /** Generate a LinkBlitzer URL from a list of URLs */

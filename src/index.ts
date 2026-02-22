@@ -23,7 +23,7 @@ const state: PopupState = {
 // DOM Elements (RAW JS RAHHHHH)
 const urlsInput = document.getElementById("urls-input") as HTMLTextAreaElement;
 const generatedLink = document.getElementById(
-  "generated-link"
+  "generated-link",
 ) as HTMLInputElement;
 const copyBtn = document.getElementById("copy-btn") as HTMLButtonElement;
 const errorMessage = document.getElementById("error-message") as HTMLElement;
@@ -58,7 +58,7 @@ const updateGeneratedLink = (): void => {
     generatedLink.placeholder = "Enable popups first to generate links";
     copyBtn.disabled = true;
     showError(
-      "Popups are blocked. Please allow popups for this site before creating links."
+      "Popups are blocked. Please allow popups for this site before creating links.",
     );
     return;
   }
@@ -70,7 +70,7 @@ const updateGeneratedLink = (): void => {
     copyBtn.disabled = true;
 
     if (urls.length > 0) {
-      showError(validation.error || "Invalid URLs");
+      showError(validation.error);
     } else {
       hideError();
     }

@@ -44,13 +44,16 @@ export const BROWSER_POPUP_GUIDES: Record<BrowserType, BrowserGuide> = {
 export const detectBrowser = (): BrowserType => {
   const userAgent = navigator.userAgent.toLowerCase();
 
-  if (userAgent.includes("edg/") || userAgent.includes("edge/")) {
+  if (userAgent.includes("edg/")) {
     return "edge";
-  } else if (userAgent.includes("chrome/") && !userAgent.includes("edg/")) {
+  }
+  if (userAgent.includes("chrome/")) {
     return "chrome";
-  } else if (userAgent.includes("firefox/")) {
+  }
+  if (userAgent.includes("firefox/")) {
     return "firefox";
-  } else if (userAgent.includes("safari/") && !userAgent.includes("chrome/")) {
+  }
+  if (userAgent.includes("safari/")) {
     return "safari";
   }
 
@@ -64,7 +67,7 @@ export const testPopupPermission = (): Promise<boolean> => {
     const testWindow = window.open(
       "",
       "_blank",
-      "width=1,height=1,left=-1000,top=-1000"
+      "width=1,height=1,left=-1000,top=-1000",
     );
 
     if (!testWindow) {
